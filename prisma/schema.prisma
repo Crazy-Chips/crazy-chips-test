@@ -15,14 +15,37 @@ model Customer {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  phone         String?
+  phone         String?   @unique
   password      String?   // null for OAuth-only users
   isNewCustomer Boolean   @default(true)
+  totalPoints   Int       @default(0)
+  memberSince   DateTime  @default(now())
   accounts      CustomerAccount[]
   sessions      CustomerSession[]
   orders        Order[]
+  rewardTxns    RewardTransaction[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+}
+
+model RewardTransaction {
+  id          String      @id @default(cuid())
+  customerId  String
+  customer    Customer    @relation(fields: [customerId], references: [id])
+  points      Int         // positive = earn, negative = redeem
+  type        RewardType
+  description String
+  orderId     String?     // online order reference
+  posOrderId  String?     // POS order reference
+  orderTotal  Float?      // order value that earned these points
+  createdAt   DateTime    @default(now())
+}
+
+enum RewardType {
+  EARN_ONLINE
+  EARN_POS
+  REDEEM
+  BONUS
 }
 
 model CustomerAccount {
