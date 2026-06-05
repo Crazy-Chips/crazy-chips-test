@@ -1,0 +1,21 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"/Users/aryanmodi/Desktop/Projects/Crazy Chips\" && git add -A && git diff --cached --quiet || git commit -m \"Auto-update: $(date '+%d %b %Y %H:%M')\" && git push origin main 2>/dev/null || true",
+            "statusMessage": "Pushing to GitHub...",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git *)"
+    ]
+  }
+}
