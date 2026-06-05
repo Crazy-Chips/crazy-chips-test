@@ -17,22 +17,16 @@ const timeline = [
     desc: 'Months of planning, recipe testing, and sourcing the best local suppliers. Every detail was locked in — from the seasoning blend to the branding. Crazy Chips was being built the right way, from the ground up.',
   },
   {
-    year: '2025',
+    year: '2026',
     emoji: '🚀',
     title: 'Launch',
-    desc: 'Crazy Chips opened its doors in Derby. Online ordering, in-store collection, and delivery all live from day one. The response from Derby was overwhelming — and we\'re just getting started.',
+    desc: 'Crazy Chips opened its doors in Derby in 2026. Online ordering, in-store collection, and delivery all live from day one. The response from Derby was overwhelming — and we\'re just getting started.',
   },
   {
     year: 'Next',
     emoji: '🏆',
     title: 'Growing with Derby',
     desc: 'Rewards for loyal customers, Just Eat delivery, POS integration, and bigger things on the horizon. The goal is simple — become Derby\'s go-to chip shop and never compromise on quality.',
-  },
-  {
-    year: '2025',
-    emoji: '🚀',
-    title: 'What\'s Next',
-    desc: 'Rewards for loyal customers, Just Eat delivery, and bigger things on the horizon. We\'re still the same Crazy Chips — just growing alongside Derby.',
   },
 ]
 
@@ -51,7 +45,7 @@ export default function OurStory() {
           className="text-center mb-14"
         >
           <p className="text-[#FFD600] text-xs font-[800] uppercase tracking-[0.15em] mb-2">
-            Est. Derby, 2025
+            Est. Derby, 2026
           </p>
           <h2 className="text-4xl sm:text-5xl text-white" style={{ fontFamily: 'var(--font-lilita)' }}>
             Our Story
