@@ -5,28 +5,28 @@ import Link from 'next/link'
 
 const timeline = [
   {
-    year: '2018',
+    year: '2025',
     emoji: '💡',
     title: 'The Idea',
-    desc: 'Two friends in Derby with a simple dream — serve the crispiest, most satisfying chips the city had ever tasted. Started with a fryer, a recipe, and a whole lot of ambition.',
+    desc: 'It all started with a simple question — why is there no proper chip shop in Derby that actually does it right? The plan was born: fresh-cut chips, smash burgers, bold flavours, and a brand that Derby could be proud of.',
   },
   {
-    year: '2019',
-    emoji: '🏪',
-    title: 'Opening Day',
-    desc: 'Crazy Chips opened its doors on Market Place, Derby. The queue stretched round the corner on day one — and we ran out of chips by 4pm. We knew we were onto something.',
+    year: '2025',
+    emoji: '📋',
+    title: 'Building the Vision',
+    desc: 'Months of planning, recipe testing, and sourcing the best local suppliers. Every detail was locked in — from the seasoning blend to the branding. Crazy Chips was being built the right way, from the ground up.',
   },
   {
-    year: '2021',
-    emoji: '📱',
-    title: 'Going Online',
-    desc: 'We launched online ordering so Derby could enjoy Crazy Chips without leaving their sofa. Delivery times, tracking, and the same fresh food — now a tap away.',
+    year: '2025',
+    emoji: '🚀',
+    title: 'Launch',
+    desc: 'Crazy Chips opened its doors in Derby. Online ordering, in-store collection, and delivery all live from day one. The response from Derby was overwhelming — and we\'re just getting started.',
   },
   {
-    year: '2023',
+    year: 'Next',
     emoji: '🏆',
-    title: 'Derby\'s Favourite',
-    desc: 'Voted Derby\'s best chip shop. Over 10,000 happy customers, a 4.9★ rating, and a menu that keeps growing. The smash burger became the city\'s most talked-about meal.',
+    title: 'Growing with Derby',
+    desc: 'Rewards for loyal customers, Just Eat delivery, POS integration, and bigger things on the horizon. The goal is simple — become Derby\'s go-to chip shop and never compromise on quality.',
   },
   {
     year: '2025',
@@ -51,7 +51,7 @@ export default function OurStory() {
           className="text-center mb-14"
         >
           <p className="text-[#FFD600] text-xs font-[800] uppercase tracking-[0.15em] mb-2">
-            Est. Derby, 2018
+            Est. Derby, 2025
           </p>
           <h2 className="text-4xl sm:text-5xl text-white" style={{ fontFamily: 'var(--font-lilita)' }}>
             Our Story
