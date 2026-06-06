@@ -18,14 +18,14 @@ export default function Navbar() {
     <>
       <nav className="sticky top-0 z-50 bg-[#b4252b] shadow-[0_2px_12px_rgba(180,37,43,0.4)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-14">
+          <div className="flex items-center justify-between h-[72px]">
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo.png"
                 alt="Crazy Chips"
-                width={44}
-                height={44}
+                width={62}
+                height={62}
                 priority
                 className="object-contain"
               />
