@@ -58,9 +58,9 @@ export default function DealsSection() {
               <p className={`text-sm font-[600] mb-4 ${deal.highlight ? 'text-white/80' : 'text-[#8a7a6a]'}`}>
                 {deal.desc}
               </p>
-              <div className={`flex items-center justify-between rounded-[10px] px-3 py-2.5 ${deal.highlight ? 'bg-white/15' : 'bg-[#FFF8EE]'}`}>
+              <div className={`flex flex-col gap-1 rounded-[10px] px-3 py-2.5 ${deal.highlight ? 'bg-white/15' : 'bg-[#FFF8EE]'}`}>
                 <span
-                  className={`font-[400] text-lg tracking-[0.15em] ${deal.highlight ? 'text-white' : 'text-[#3D2200]'}`}
+                  className={`font-[400] text-xl tracking-[0.15em] ${deal.highlight ? 'text-white' : 'text-[#3D2200]'}`}
                   style={{ fontFamily: 'var(--font-lilita)' }}
                 >
                   {deal.code}
