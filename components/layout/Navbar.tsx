@@ -20,8 +20,15 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
-            <Link href="/" className="flex items-center -ml-1">
-              <Image src="/logo.png" alt="Crazy Chips" width={56} height={56} priority />
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Crazy Chips"
+                width={44}
+                height={44}
+                priority
+                className="object-contain"
+              />
             </Link>
 
             {/* Desktop Nav */}
