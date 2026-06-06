@@ -84,7 +84,7 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-2 bg-white rounded-[12px] px-4 py-2.5 shadow-[0_2px_12px_rgba(61,34,0,.08)]">
                 <Bike size={16} className="text-[#D92B2B]" />
-                <span className="text-sm font-[700] text-[#3D2200]">Free collection</span>
+                <span className="text-sm font-[700] text-[#3D2200]">Delivery & Collection</span>
               </div>
             </motion.div>
           </div>
