@@ -4,6 +4,7 @@ import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import CookieBanner from '@/components/shared/CookieBanner'
 import SessionProvider from '@/components/shared/SessionProvider'
+import PageLoader from '@/components/shared/PageLoader'
 
 const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GB" className={`${jakarta.variable} ${lilita.variable} h-full`}>
       <body className="min-h-full flex flex-col font-[family-name:var(--font-jakarta)] bg-[#FFF8EE] text-[#3D2200]">
+        <PageLoader />
         <SessionProvider>
           {children}
         </SessionProvider>
