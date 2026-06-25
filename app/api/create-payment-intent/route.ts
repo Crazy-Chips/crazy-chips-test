@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     // Calculate subtotal server-side
     let subtotal = 0
     for (const cartItem of items) {
-      const dbItem = dbItems.find((d) => d.id === cartItem.menuItemId)
+      const dbItem = dbItems.find((d: any) => d.id === cartItem.menuItemId)
       if (!dbItem) return NextResponse.json({ error: 'Item not found' }, { status: 400 })
 
       const extrasTotal = (cartItem.extras || []).reduce((s: number, e: { price: number }) => s + e.price, 0)
