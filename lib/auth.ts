@@ -2,9 +2,9 @@ import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 
-// Master dev credentials — works without a database connection
-const MASTER_EMAIL = 'master@crazychips.co.uk'
-const MASTER_PASSWORD = 'CrazyChips@Master2025'
+// Master dev credentials — set in .env.local only, never committed
+const MASTER_EMAIL = process.env.MASTER_ADMIN_EMAIL
+const MASTER_PASSWORD = process.env.MASTER_ADMIN_PASSWORD
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,8 +17,10 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
 
-        // Master credentials — always works regardless of DB
+        // Master credentials — only active if set in env, always works regardless of DB
         if (
+          MASTER_EMAIL &&
+          MASTER_PASSWORD &&
           credentials.email === MASTER_EMAIL &&
           credentials.password === MASTER_PASSWORD
         ) {
