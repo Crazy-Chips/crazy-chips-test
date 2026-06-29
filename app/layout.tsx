@@ -4,6 +4,7 @@ import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import CookieBanner from '@/components/shared/CookieBanner'
 import SessionProvider from '@/components/shared/SessionProvider'
+import MobileBottomNav from '@/components/layout/MobileBottomNav'
 
 const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
@@ -35,9 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full flex flex-col font-[family-name:var(--font-jakarta)] bg-[#FFF8EE] text-[#3D2200]">
         <SessionProvider>
           {children}
+          <Toaster richColors />
+          <CookieBanner />
+          <MobileBottomNav />
         </SessionProvider>
-        <Toaster richColors />
-        <CookieBanner />
       </body>
     </html>
   )
