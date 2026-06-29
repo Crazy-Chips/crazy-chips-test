@@ -20,7 +20,7 @@ export default function Bestsellers() {
   if (!items.length) return null
 
   return (
-    <section className="bg-[#FFF8EE] py-14">
+    <section id="menu" className="bg-[#FFF8EE] py-14">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
