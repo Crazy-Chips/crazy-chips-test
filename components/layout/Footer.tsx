@@ -4,7 +4,7 @@ import { MapPin, Phone, Clock } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#3D2200] text-white/70 pb-24 md:pb-0">
+    <footer className="bg-[#3D2200] text-white/70 pb-24">
       {/* CTA */}
       <div className="border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-5">
