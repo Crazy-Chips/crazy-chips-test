@@ -81,19 +81,21 @@ export default function BottomNav() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 6, scale: 0.95 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                  className="absolute bottom-full mb-3 left-0 bg-white/90 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(61,34,0,0.18)] rounded-[18px] py-2 px-1 min-w-[148px] z-50"
+                  className="absolute bottom-full left-0 pb-3 z-50 min-w-[148px]"
                 >
-                  <p className="text-[9px] font-[900] uppercase tracking-widest text-[#c4b49a] px-3 pb-1.5">Jump to</p>
-                  {homeSubLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="flex items-center gap-2 px-3 py-2 rounded-[10px] text-sm font-[700] text-[#3D2200] hover:bg-[#FFF8EE] transition-colors"
-                    >
-                      <ChevronRight size={12} className="text-[#D92B2B]" />
-                      {link.label}
-                    </Link>
-                  ))}
+                  <div className="bg-white/90 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(61,34,0,0.18)] rounded-[18px] py-2 px-1">
+                    <p className="text-[9px] font-[900] uppercase tracking-widest text-[#c4b49a] px-3 pb-1.5">Jump to</p>
+                    {homeSubLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="flex items-center gap-2 px-3 py-2 rounded-[10px] text-sm font-[700] text-[#3D2200] hover:bg-[#FFF8EE] transition-colors"
+                      >
+                        <ChevronRight size={12} className="text-[#D92B2B]" />
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
