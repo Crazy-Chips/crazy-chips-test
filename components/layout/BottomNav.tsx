@@ -79,12 +79,18 @@ export default function BottomNav() {
     <>
       <nav className="fixed bottom-5 inset-x-4 z-30 flex justify-center pointer-events-none">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 20, columnGap: 4, paddingLeft: 12, paddingRight: 12 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            columnGap: navExpanded ? 14 : 4,
+            paddingLeft: navExpanded ? 20 : 12,
+            paddingRight: navExpanded ? 20 : 12,
+          }}
+          transition={{ opacity: { duration: 0.4 }, y: { duration: 0.4 }, columnGap: { type: 'spring', stiffness: 320, damping: 28 }, paddingLeft: { type: 'spring', stiffness: 320, damping: 28 }, paddingRight: { type: 'spring', stiffness: 320, damping: 28 } }}
           onMouseEnter={handleNavEnter}
           onMouseLeave={handleNavLeave}
-          className="pointer-events-auto flex items-end gap-1 px-3 pt-3 pb-2 rounded-[32px] bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(61,34,0,0.20)]"
+          className="pointer-events-auto flex items-end pt-3 pb-2 rounded-[32px] bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(61,34,0,0.20)]"
         >
           {/* ── Home ── */}
           <div
