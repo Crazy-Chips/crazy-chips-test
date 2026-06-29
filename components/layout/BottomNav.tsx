@@ -25,26 +25,44 @@ export default function BottomNav() {
   const [cartOpen,    setCartOpen]    = useState(false)
   const [navExpanded, setNavExpanded] = useState(false)
   const [homeHover,   setHomeHover]   = useState(false)
-  const homeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const openTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const isHome    = pathname === '/'
   const isMenu    = pathname.startsWith('/menu')
   const isOffers  = pathname === '/offers'
   const isAccount = pathname === '/account' || pathname === '/login' || pathname === '/register'
 
-  const handleNavEnter = () => setNavExpanded(true)
+  const cancelClose = () => { if (closeTimer.current) clearTimeout(closeTimer.current) }
+  const cancelOpen  = () => { if (openTimer.current)  clearTimeout(openTimer.current)  }
+
+  const handleNavEnter = () => {
+    cancelClose()
+    setNavExpanded(true)
+  }
   const handleNavLeave = () => {
-    setNavExpanded(false)
-    if (homeTimer.current) clearTimeout(homeTimer.current)
-    setHomeHover(false)
+    cancelOpen()
+    // grace period so mouse can move to the popup above without it vanishing
+    closeTimer.current = setTimeout(() => {
+      setNavExpanded(false)
+      setHomeHover(false)
+    }, 120)
   }
 
   const handleHomeEnter = () => {
-    homeTimer.current = setTimeout(() => setHomeHover(true), 1400)
+    cancelClose()
+    cancelOpen()
+    openTimer.current = setTimeout(() => setHomeHover(true), 500)
   }
   const handleHomeLeave = () => {
-    if (homeTimer.current) clearTimeout(homeTimer.current)
-    setHomeHover(false)
+    cancelOpen()
+    closeTimer.current = setTimeout(() => setHomeHover(false), 120)
+  }
+
+  // keep popup alive while mouse is over it
+  const handlePopupEnter = () => { cancelClose(); cancelOpen() }
+  const handlePopupLeave = () => {
+    closeTimer.current = setTimeout(() => setHomeHover(false), 120)
   }
 
   const iconClass = (active: boolean) =>
@@ -81,7 +99,9 @@ export default function BottomNav() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 6, scale: 0.95 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                  className="absolute bottom-full left-0 pb-3 z-50 min-w-[148px]"
+                  className="absolute bottom-full left-0 mb-2 z-50 min-w-[148px]"
+                  onMouseEnter={handlePopupEnter}
+                  onMouseLeave={handlePopupLeave}
                 >
                   <div className="bg-white/90 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(61,34,0,0.18)] rounded-[18px] py-2 px-1">
                     <p className="text-[9px] font-[900] uppercase tracking-widest text-[#c4b49a] px-3 pb-1.5">Jump to</p>
