@@ -8,7 +8,7 @@ export default function DeliverySection() {
   const justEatUrl = process.env.NEXT_PUBLIC_JUST_EAT_URL ?? 'https://www.just-eat.co.uk/restaurants-crazy-chips-littleover-de1/menu'
 
   return (
-    <section className="bg-[#F5EDD8] py-14">
+    <section id="delivery" className="bg-[#F5EDD8] py-14">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
