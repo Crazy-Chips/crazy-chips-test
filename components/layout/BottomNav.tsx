@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Home, UtensilsCrossed, ShoppingCart, Tag, User, ChevronRight } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
@@ -25,16 +25,28 @@ export default function BottomNav() {
   const [cartOpen,    setCartOpen]    = useState(false)
   const [navExpanded, setNavExpanded] = useState(false)
   const [homeHover,   setHomeHover]   = useState(false)
-  const openTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const openTimer    = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const closeTimer   = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const mobileTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const isTouchRef   = useRef(false)
+
+  useEffect(() => {
+    isTouchRef.current = window.matchMedia('(hover: none)').matches
+  }, [])
 
   const isHome    = pathname === '/'
   const isMenu    = pathname.startsWith('/menu')
   const isOffers  = pathname === '/offers'
   const isAccount = pathname === '/account' || pathname === '/login' || pathname === '/register'
 
-  const cancelClose = () => { if (closeTimer.current) clearTimeout(closeTimer.current) }
-  const cancelOpen  = () => { if (openTimer.current)  clearTimeout(openTimer.current)  }
+  const cancelClose       = () => { if (closeTimer.current)  clearTimeout(closeTimer.current)  }
+  const cancelOpen        = () => { if (openTimer.current)   clearTimeout(openTimer.current)   }
+  const cancelMobileTimer = () => { if (mobileTimer.current) clearTimeout(mobileTimer.current) }
+
+  const startMobileTimer = () => {
+    cancelMobileTimer()
+    mobileTimer.current = setTimeout(() => setHomeHover(false), 10000)
+  }
 
   const handleNavEnter = () => {
     cancelClose()
@@ -42,6 +54,7 @@ export default function BottomNav() {
   }
   const handleNavLeave = () => {
     cancelOpen()
+    cancelMobileTimer()
     // grace period so mouse can move to the popup above without it vanishing
     closeTimer.current = setTimeout(() => {
       setNavExpanded(false)
@@ -52,10 +65,14 @@ export default function BottomNav() {
   const handleHomeEnter = () => {
     cancelClose()
     cancelOpen()
-    openTimer.current = setTimeout(() => setHomeHover(true), 500)
+    openTimer.current = setTimeout(() => {
+      setHomeHover(true)
+      if (isTouchRef.current) startMobileTimer()
+    }, 500)
   }
   const handleHomeLeave = () => {
     cancelOpen()
+    cancelMobileTimer()
     closeTimer.current = setTimeout(() => setHomeHover(false), 120)
   }
 
