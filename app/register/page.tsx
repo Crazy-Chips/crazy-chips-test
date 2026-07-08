@@ -35,7 +35,7 @@ export default function RegisterPage() {
       }
       // Auto sign in after registration
       const result = await signIn('customer-credentials', {
-        email: form.email,
+        identifier: form.email,
         password: form.password,
         redirect: false,
       })
