@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const body: CreateOrderPayload = await req.json()
     const { items, promoCode, type, customerDetails, stripePaymentId } = body
 
-    if (!items?.length || !type || !customerDetails || !stripePaymentId) {
+    if (!items?.length || !type || !customerDetails) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
         address: customerDetails.address,
         postcode: customerDetails.postcode,
         notes: customerDetails.notes,
-        stripePaymentId,
+        stripePaymentId: stripePaymentId || null,
         promoCodeUsed: promoCode || null,
         items: {
           create: orderItemsData.map((item) => ({
