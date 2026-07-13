@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Home, UtensilsCrossed, ShoppingCart, Tag, User, ChevronRight } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
-import { useSession } from 'next-auth/react'
+import { useSession } from '@/lib/customer-auth-client'
 import CartDrawer from '@/components/cart/CartDrawer'
 
 const homeSubLinks = [

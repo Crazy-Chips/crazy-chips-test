@@ -6,14 +6,29 @@ export async function GET(req: NextRequest) {
   if (!email) return NextResponse.json({ customer: null })
 
   try {
-    const customer = await prisma.customer.findUnique({
+    let customer = await prisma.customer.findUnique({
       where: { email },
       include: {
         rewardTxns: { orderBy: { createdAt: 'desc' }, take: 20 },
       },
     })
+
+    if (!customer) {
+      customer = await prisma.customer.create({
+        data: {
+          email,
+          name: email.split('@')[0],
+          isNewCustomer: true,
+          totalPoints: 0,
+        },
+        include: {
+          rewardTxns: true,
+        },
+      })
+    }
     return NextResponse.json({ customer })
-  } catch {
+  } catch (error) {
+    console.error('Profile fetch/create error:', error)
     return NextResponse.json({ customer: null })
   }
 }
