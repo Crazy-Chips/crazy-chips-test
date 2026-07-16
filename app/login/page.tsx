@@ -48,19 +48,19 @@ function LoginForm() {
       <div className="absolute top-[-80px] right-[-80px] w-[320px] h-[320px] bg-[#FFD600] rounded-full opacity-25 pointer-events-none" />
       <div className="absolute bottom-[-60px] left-[-60px] w-[250px] h-[250px] bg-[#D92B2B] rounded-full opacity-10 pointer-events-none" />
 
-      <div className="relative flex items-center justify-center min-h-screen p-5">
-        <div className="bg-white rounded-[28px] w-full max-w-[420px] shadow-[0_8px_40px_rgba(61,34,0,0.18)] p-8 sm:p-10">
+      <div className="relative flex items-start justify-center min-h-screen px-4 pt-6 pb-28 sm:items-center sm:p-5">
+        <div className="bg-white rounded-[28px] w-full max-w-[380px] sm:max-w-[420px] shadow-[0_8px_40px_rgba(61,34,0,0.18)] p-6 sm:p-10">
           {/* Logo */}
-          <div className="flex flex-col items-center mb-8">
-            <Image src="/logo.png" alt="Crazy Chips" width={72} height={72} className="rounded-2xl mb-3" />
-            <h1 className="text-2xl text-[#3D2200]" style={{ fontFamily: 'var(--font-lilita)' }}>
+          <div className="flex flex-col items-center mb-6 sm:mb-8">
+            <Image src="/logo.png" alt="Crazy Chips" width={64} height={64} className="rounded-2xl mb-3 sm:w-[72px] sm:h-[72px]" />
+            <h1 className="text-[1.75rem] sm:text-2xl text-[#3D2200]" style={{ fontFamily: 'var(--font-lilita)' }}>
               Welcome Back!
             </h1>
             <p className="text-[#8a7a6a] text-sm font-[600] mt-1">Sign in to track your orders</p>
           </div>
 
           {/* OAuth buttons */}
-          <div className="space-y-3 mb-6">
+          <div className="space-y-3 mb-5 sm:mb-6">
             <button
               onClick={() => handleOAuth('google')}
               disabled={!!oauthLoading}
@@ -88,14 +88,14 @@ function LoginForm() {
           </div>
 
           {/* Divider */}
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-5 sm:mb-6">
             <div className="flex-1 h-px bg-[#F5EDD8]" />
             <span className="text-[#8a7a6a] text-xs font-[700]">or sign in with email</span>
             <div className="flex-1 h-px bg-[#F5EDD8]" />
           </div>
 
           {/* Email form */}
-          <form onSubmit={handleEmailLogin} className="space-y-4">
+          <form onSubmit={handleEmailLogin} className="space-y-3 sm:space-y-4">
             <div className="relative">
               <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a7a6a]" />
               <input
@@ -136,7 +136,7 @@ function LoginForm() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-[#8a7a6a] font-[600] mt-6">
+          <p className="text-center text-sm text-[#8a7a6a] font-[600] mt-5 sm:mt-6">
             Don&apos;t have an account?{' '}
             <Link href="/register" className="text-[#D92B2B] font-[800] hover:underline">
               Create one
