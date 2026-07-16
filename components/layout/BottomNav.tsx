@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { Home, UtensilsCrossed, ShoppingCart, Tag, User } from 'lucide-react'
+import { Home, UtensilsCrossed, Tag, User } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
 import { useSession } from 'next-auth/react'
 import CartDrawer from '@/components/cart/CartDrawer'
@@ -40,7 +40,7 @@ export default function BottomNav() {
   return (
     <>
       <nav
-        className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[500] flex items-center justify-center p-1.5 rounded-[100px]"
+        className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-[500] flex items-center justify-center p-1.5 rounded-[100px] transition-all duration-200 ${cartOpen ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100 pointer-events-auto'}`}
         style={{
           background: 'rgba(255, 248, 238, 0.85)',
           backdropFilter: 'blur(40px) saturate(180%)',
@@ -65,7 +65,6 @@ export default function BottomNav() {
 
           {/* Cart */}
           <button onClick={() => setCartOpen(true)} className={`relative ${linkCls(false)}`}>
-            <ShoppingCart size={12} className="opacity-[0.18] shrink-0" />
             Cart
             {itemCount > 0 && (
               <span className="absolute -top-0.5 -right-0.5 bg-[#D92B2B] text-white text-[8px] font-[900] rounded-full min-w-[14px] h-3.5 flex items-center justify-center px-[2px] border border-[#FFF8EE]">
