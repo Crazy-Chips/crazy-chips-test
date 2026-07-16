@@ -34,6 +34,13 @@ export default function BottomNav() {
     isTouchRef.current = window.matchMedia('(hover: none)').matches
   }, [])
 
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const isHome    = pathname === '/'
   const isMenu    = pathname.startsWith('/menu')
   const isOffers  = pathname === '/offers'
@@ -84,7 +91,7 @@ export default function BottomNav() {
 
   const iconClass = (active: boolean) =>
     `relative flex items-center justify-center w-11 h-11 rounded-full transition-colors duration-300 ${
-      active ? 'text-[#D92B2B]' : 'text-[#8a7a6a] hover:text-[#3D2200]'
+      active ? 'text-[#D92B2B]' : 'text-white/40 hover:text-white/80'
     }`
 
   const labelVariants = {
@@ -107,7 +114,16 @@ export default function BottomNav() {
           transition={{ opacity: { duration: 0.4 }, y: { duration: 0.4 }, columnGap: { type: 'spring', stiffness: 320, damping: 28 }, paddingLeft: { type: 'spring', stiffness: 320, damping: 28 }, paddingRight: { type: 'spring', stiffness: 320, damping: 28 } }}
           onMouseEnter={handleNavEnter}
           onMouseLeave={handleNavLeave}
-          className="pointer-events-auto flex items-end pt-3 pb-2 rounded-[32px] bg-white/75 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(61,34,0,0.20)]"
+          className="pointer-events-auto flex items-end pt-3 pb-2 rounded-[100px]"
+          style={{
+            background: 'rgba(20, 20, 22, 0.90)',
+            backdropFilter: 'blur(40px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(200%)',
+            border: `1px solid ${scrolled ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.12)'}`,
+            boxShadow: scrolled
+              ? '0 -4px 24px rgba(0,0,0,0.2), 0 12px 48px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.12)'
+              : '0 -4px 24px rgba(0,0,0,0.2), 0 8px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.10)',
+          }}
         >
           {/* ── Home ── */}
           <div
@@ -126,13 +142,13 @@ export default function BottomNav() {
                   onMouseEnter={handlePopupEnter}
                   onMouseLeave={handlePopupLeave}
                 >
-                  <div className="bg-white/90 backdrop-blur-xl border border-white/60 shadow-[0_8px_32px_rgba(61,34,0,0.18)] rounded-[18px] py-2 px-1">
-                    <p className="text-[9px] font-[900] uppercase tracking-widest text-[#c4b49a] px-3 pb-1.5">Jump to</p>
+                  <div className="rounded-[18px] py-2 px-1" style={{ background: 'rgba(20,20,22,0.92)', backdropFilter: 'blur(40px) saturate(200%)', WebkitBackdropFilter: 'blur(40px) saturate(200%)', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 8px 32px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08)' }}>
+                    <p className="text-[9px] font-[900] uppercase tracking-widest text-white/30 px-3 pb-1.5">Jump to</p>
                     {homeSubLinks.map((link) => (
                       <Link
                         key={link.href}
                         href={link.href}
-                        className="flex items-center gap-2 px-3 py-2 rounded-[10px] text-sm font-[700] text-[#3D2200] hover:bg-[#FFF8EE] transition-colors"
+                        className="flex items-center gap-2 px-3 py-2 rounded-[10px] text-sm font-[700] text-white/80 hover:text-white hover:bg-white/[0.08] transition-colors"
                       >
                         <ChevronRight size={12} className="text-[#D92B2B]" />
                         {link.label}
@@ -146,7 +162,7 @@ export default function BottomNav() {
             <Link href="/" className="flex flex-col items-center">
               <div className={iconClass(isHome)}>
                 {isHome && (
-                  <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/10"
+                  <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/20 border border-[#D92B2B]/30"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
                 )}
                 <Home size={19} strokeWidth={isHome ? 2.4 : 2} className="relative z-10" />
@@ -158,7 +174,7 @@ export default function BottomNav() {
                     variants={labelVariants}
                     initial="hidden" animate="visible" exit="hidden"
                     transition={{ duration: 0.18 }}
-                    className={`text-[10px] font-[700] leading-none overflow-hidden ${isHome ? 'text-[#D92B2B]' : 'text-[#8a7a6a]'}`}
+                    className={`text-[10px] font-[700] leading-none overflow-hidden ${isHome ? 'text-[#D92B2B]' : 'text-white/40'}`}
                   >
                     Home
                   </motion.span>
@@ -171,7 +187,7 @@ export default function BottomNav() {
           <Link href="/menu" className="flex flex-col items-center">
             <div className={iconClass(isMenu)}>
               {isMenu && (
-                <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/10"
+                <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/20 border border-[#D92B2B]/30"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
               )}
               <UtensilsCrossed size={19} strokeWidth={isMenu ? 2.4 : 2} className="relative z-10" />
@@ -180,7 +196,7 @@ export default function BottomNav() {
               {navExpanded && (
                 <motion.span key="label-menu" variants={labelVariants} initial="hidden" animate="visible" exit="hidden"
                   transition={{ duration: 0.18 }}
-                  className={`text-[10px] font-[700] leading-none overflow-hidden ${isMenu ? 'text-[#D92B2B]' : 'text-[#8a7a6a]'}`}>
+                  className={`text-[10px] font-[700] leading-none overflow-hidden ${isMenu ? 'text-[#D92B2B]' : 'text-white/40'}`}>
                   Menu
                 </motion.span>
               )}
@@ -201,7 +217,7 @@ export default function BottomNav() {
               {itemCount > 0 && (
                 <motion.span key={itemCount} initial={{ scale: 0.6 }} animate={{ scale: 1 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 15 }}
-                  className="absolute -top-1 -right-1 bg-[#FFD600] text-[#3D2200] text-[10px] font-[900] rounded-full min-w-[20px] h-[20px] flex items-center justify-center px-1 border-2 border-white">
+                  className="absolute -top-1 -right-1 bg-[#FFD600] text-[#3D2200] text-[10px] font-[900] rounded-full min-w-[20px] h-[20px] flex items-center justify-center px-1 border-2 border-[#141416]">
                   {itemCount}
                 </motion.span>
               )}
@@ -210,7 +226,7 @@ export default function BottomNav() {
               {navExpanded && (
                 <motion.span key="label-cart" variants={labelVariants} initial="hidden" animate="visible" exit="hidden"
                   transition={{ duration: 0.18 }}
-                  className="text-[10px] font-[700] leading-none overflow-hidden text-[#8a7a6a]">
+                  className="text-[10px] font-[700] leading-none overflow-hidden text-white/40">
                   Cart
                 </motion.span>
               )}
@@ -221,7 +237,7 @@ export default function BottomNav() {
           <Link href="/offers" className="flex flex-col items-center">
             <div className={iconClass(isOffers)}>
               {isOffers && (
-                <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/10"
+                <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/20 border border-[#D92B2B]/30"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
               )}
               <Tag size={19} strokeWidth={isOffers ? 2.4 : 2} className="relative z-10" />
@@ -230,7 +246,7 @@ export default function BottomNav() {
               {navExpanded && (
                 <motion.span key="label-offers" variants={labelVariants} initial="hidden" animate="visible" exit="hidden"
                   transition={{ duration: 0.18 }}
-                  className={`text-[10px] font-[700] leading-none overflow-hidden ${isOffers ? 'text-[#D92B2B]' : 'text-[#8a7a6a]'}`}>
+                  className={`text-[10px] font-[700] leading-none overflow-hidden ${isOffers ? 'text-[#D92B2B]' : 'text-white/40'}`}>
                   Offers
                 </motion.span>
               )}
@@ -241,7 +257,7 @@ export default function BottomNav() {
           <Link href={session ? '/account' : '/login'} className="flex flex-col items-center">
             <div className={iconClass(isAccount)}>
               {isAccount && (
-                <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/10"
+                <motion.span layoutId="navPill" className="absolute inset-0 rounded-full bg-[#D92B2B]/20 border border-[#D92B2B]/30"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
               )}
               <span className="relative z-10 flex items-center justify-center">
@@ -256,7 +272,7 @@ export default function BottomNav() {
               {navExpanded && (
                 <motion.span key="label-account" variants={labelVariants} initial="hidden" animate="visible" exit="hidden"
                   transition={{ duration: 0.18 }}
-                  className={`text-[10px] font-[700] leading-none overflow-hidden ${isAccount ? 'text-[#D92B2B]' : 'text-[#8a7a6a]'}`}>
+                  className={`text-[10px] font-[700] leading-none overflow-hidden ${isAccount ? 'text-[#D92B2B]' : 'text-white/40'}`}>
                   {session ? 'Account' : 'Sign In'}
                 </motion.span>
               )}
