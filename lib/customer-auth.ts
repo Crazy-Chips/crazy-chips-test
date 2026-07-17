@@ -26,21 +26,27 @@ export const customerAuthOptions: NextAuthOptions = {
         ]
       : []),
 
-    // Email + Password
+    // Email / Mobile + Password
     CredentialsProvider({
       id: 'customer-credentials',
-      name: 'Email & Password',
+      name: 'Email or Mobile & Password',
       credentials: {
-        email: { label: 'Email', type: 'email' },
+        identifier: { label: 'Email or Mobile', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null
+        if (!credentials?.identifier || !credentials?.password) return null
 
         try {
           const { prisma } = await import('./prisma')
-          const customer = await prisma.customer.findUnique({
-            where: { email: credentials.email },
+          // Find customer by email OR phone number
+          const customer = await prisma.customer.findFirst({
+            where: {
+              OR: [
+                { email: credentials.identifier },
+                { phone: credentials.identifier },
+              ],
+            },
           })
 
           if (!customer || !customer.password) return null
@@ -113,5 +119,35 @@ export const customerAuthOptions: NextAuthOptions = {
     },
   },
 
+  cookies: {
+    sessionToken: {
+      name: `${process.env.NODE_ENV === 'production' ? '__Secure-' : ''}next-auth.session-token-customer`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+    callbackUrl: {
+      name: `${process.env.NODE_ENV === 'production' ? '__Secure-' : ''}next-auth.callback-url-customer`,
+      options: {
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+    csrfToken: {
+      name: `${process.env.NODE_ENV === 'production' ? '__Secure-' : ''}next-auth.csrf-token-customer`,
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+      },
+    },
+  },
+
   secret: process.env.NEXTAUTH_SECRET,
 }
+

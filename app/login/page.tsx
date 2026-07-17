@@ -4,7 +4,7 @@ import { useState, Suspense } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { signIn } from 'next-auth/react'
+import { signIn } from '@/lib/customer-auth-client'
 import { toast } from 'sonner'
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react'
 import Navbar from '@/components/layout/Navbar'
@@ -14,7 +14,7 @@ function LoginForm() {
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || '/'
 
-  const [form, setForm] = useState({ email: '', password: '' })
+  const [form, setForm] = useState({ identifier: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [oauthLoading, setOauthLoading] = useState<string | null>(null)
@@ -23,14 +23,14 @@ function LoginForm() {
     e.preventDefault()
     setLoading(true)
     const result = await signIn('customer-credentials', {
-      email: form.email,
+      identifier: form.identifier,
       password: form.password,
       redirect: false,
       callbackUrl,
     })
     setLoading(false)
     if (result?.error) {
-      toast.error('Invalid email or password')
+      toast.error('Invalid credentials')
     } else {
       toast.success('Welcome back!')
       router.push(callbackUrl)
@@ -90,20 +90,20 @@ function LoginForm() {
           {/* Divider */}
           <div className="flex items-center gap-3 mb-5 sm:mb-6">
             <div className="flex-1 h-px bg-[#F5EDD8]" />
-            <span className="text-[#8a7a6a] text-xs font-[700]">or sign in with email</span>
+            <span className="text-[#8a7a6a] text-xs font-[700]">or sign in with email/mobile</span>
             <div className="flex-1 h-px bg-[#F5EDD8]" />
           </div>
 
-          {/* Email form */}
-          <form onSubmit={handleEmailLogin} className="space-y-3 sm:space-y-4">
+          {/* Email/Mobile form */}
+          <form onSubmit={handleEmailLogin} className="space-y-4">
             <div className="relative">
               <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8a7a6a]" />
               <input
-                type="email"
+                type="text"
                 required
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="Email address"
+                value={form.identifier}
+                onChange={(e) => setForm({ ...form, identifier: e.target.value })}
+                placeholder="Email or Mobile number"
                 className="w-full pl-11 pr-4 py-3 border-2 border-[#F5EDD8] rounded-[12px] text-sm font-[600] text-[#3D2200] placeholder:text-[#c4b49a] placeholder:font-[500] focus:outline-none focus:border-[#D92B2B] bg-white transition-colors"
               />
             </div>

@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Home, UtensilsCrossed, Tag, User } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
-import { useSession } from 'next-auth/react'
+import { useSession } from '@/lib/customer-auth-client'
 import CartDrawer from '@/components/cart/CartDrawer'
 
 export default function BottomNav() {

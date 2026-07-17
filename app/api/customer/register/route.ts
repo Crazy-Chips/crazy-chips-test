@@ -20,6 +20,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'An account with this email already exists' }, { status: 409 })
     }
 
+    if (phone) {
+      const existingPhone = await prisma.customer.findUnique({ where: { phone } })
+      if (existingPhone) {
+        return NextResponse.json({ error: 'An account with this mobile number already exists' }, { status: 409 })
+      }
+    }
+
     const hashedPassword = await bcrypt.hash(password, 12)
 
     const customer = await prisma.customer.create({

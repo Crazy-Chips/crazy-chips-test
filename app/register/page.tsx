@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
+import { signIn } from '@/lib/customer-auth-client'
 import { toast } from 'sonner'
 import { Eye, EyeOff, Mail, Lock, User, Phone } from 'lucide-react'
 
@@ -35,7 +35,7 @@ export default function RegisterPage() {
       }
       // Auto sign in after registration
       const result = await signIn('customer-credentials', {
-        email: form.email,
+        identifier: form.email,
         password: form.password,
         redirect: false,
       })
