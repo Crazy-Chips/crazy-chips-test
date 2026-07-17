@@ -11,7 +11,12 @@ export async function proxy(req: NextRequest) {
 
   // Protect admin routes (except login)
   if (path.startsWith('/admin') && !path.startsWith('/admin/login')) {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+    const cookieName = '__Secure-next-auth.session-token-admin'
+    const token = await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+      cookieName,
+    })
     if (!token) {
       return NextResponse.redirect(new URL('/admin/login', req.url))
     }
