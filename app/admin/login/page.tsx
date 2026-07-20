@@ -31,14 +31,14 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A]">
-      <div className="w-full max-w-md px-8 py-12 bg-[#111111] rounded-3xl border border-white/10">
-        <div className="flex flex-col items-center mb-10">
-          <Image src="/logo.png" alt="Crazy Chips" width={80} height={80} className="rounded-2xl mb-3" />
+    <div className="min-h-screen flex items-center justify-center bg-[#0A0A0A] px-4 pb-28 pt-8">
+      <div className="w-full max-w-md px-7 py-8 bg-[#111111] rounded-3xl border border-white/10">
+        <div className="flex flex-col items-center mb-6">
+          <Image src="/logo.png" alt="Crazy Chips" width={100} height={45} className="mb-3 object-contain" />
           <p className="text-white/40 text-sm font-[600]">Admin Portal</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-white/60 text-sm mb-1.5">Email</label>
             <input
