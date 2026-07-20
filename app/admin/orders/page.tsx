@@ -62,7 +62,7 @@ export default function AdminOrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white pb-28">
+    <div className="min-h-screen bg-[#0A0A0A] text-white">
       <nav className="bg-[#111111] border-b border-white/10 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <Image src="/logo.png" alt="Crazy Chips" width={36} height={36} className="rounded-lg" />
