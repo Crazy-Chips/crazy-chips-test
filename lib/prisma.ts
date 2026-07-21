@@ -21,8 +21,22 @@ function createPrismaClient() {
   })
 }
 
-export const prisma = globalForPrisma.prisma || createPrismaClient()
+// Lazily initialize PrismaClient using a Proxy to avoid build-time errors when DATABASE_URL is not set
+let prismaInstance: PrismaClient | null = null
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
-
+export const prisma = new Proxy({} as PrismaClient, {
+  get(target, prop) {
+    if (!prismaInstance) {
+      prismaInstance = globalForPrisma.prisma || createPrismaClient()
+      if (process.env.NODE_ENV !== 'production') {
+        globalForPrisma.prisma = prismaInstance
+      }
+    }
+    const value = Reflect.get(prismaInstance, prop)
+    if (typeof value === 'function') {
+      return value.bind(prismaInstance)
+    }
+    return value
+  }
+})
 
