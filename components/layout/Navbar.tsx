@@ -11,8 +11,8 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="Crazy Chips"
-              width={62}
-              height={62}
+              width={140}
+              height={63}
               priority
               className="object-contain"
             />

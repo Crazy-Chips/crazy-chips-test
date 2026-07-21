@@ -22,6 +22,8 @@ export default function BottomNav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  if (pathname.startsWith('/admin')) return null
+
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href)
 
