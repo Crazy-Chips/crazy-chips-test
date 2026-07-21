@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci --legacy-peer-deps
+        - npm ci --legacy-peer-deps --include=dev
     build:
       commands:
         - npx prisma generate
