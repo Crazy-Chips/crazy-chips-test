@@ -29,28 +29,24 @@ export default function BottomNav() {
 
   const linkCls = (active: boolean) =>
     [
-      'flex items-center gap-1 text-[11.5px] font-[600] no-underline px-4 py-2 rounded-[100px] border transition-all duration-[250ms] whitespace-nowrap',
+      'flex items-center gap-1.5 text-[12px] font-[800] tracking-wider uppercase no-underline px-4.5 py-2.5 rounded-[100px] transition-all duration-[250ms] whitespace-nowrap',
       active
-        ? 'text-[#D92B2B] bg-[#D92B2B]/[0.10] border-[#D92B2B]/25'
-        : 'text-[#8a7a6a] border-transparent hover:text-[#3D2200] hover:bg-[#3D2200]/[0.07] hover:scale-[1.04]',
+        ? 'text-[#D92B2B] bg-[#FFF8EE] shadow-[inset_2px_2px_5px_rgba(180,160,140,0.3),_inset_-2px_-2px_5px_rgba(255,255,255,0.9)]'
+        : 'text-[#8a7a6a] border-transparent hover:text-[#3D2200] hover:scale-[1.04]',
     ].join(' ')
 
-  const iconCls = 'opacity-[0.18] shrink-0'
+  const iconCls = 'opacity-[0.4] shrink-0'
 
   const isAccount = isActive('/account') || isActive('/login') || isActive('/register')
 
   return (
     <>
       <nav
-        className={`fixed bottom-4 left-1/2 -translate-x-1/2 z-[500] flex items-center justify-center p-1.5 rounded-[100px] transition-all duration-200 ${cartOpen ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100 pointer-events-auto'}`}
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[500] flex items-center justify-center p-2 rounded-[100px] transition-all duration-200 ${cartOpen ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100 pointer-events-auto'}`}
         style={{
-          background: 'rgba(255, 248, 238, 0.85)',
-          backdropFilter: 'blur(40px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-          border: `1px solid ${scrolled ? 'rgba(61,34,0,0.18)' : 'rgba(61,34,0,0.10)'}`,
-          boxShadow: scrolled
-            ? '0 -2px 12px rgba(61,34,0,0.08), 0 10px 32px rgba(61,34,0,0.16), inset 0 1px 0 rgba(255,255,255,0.90)'
-            : '0 -2px 12px rgba(61,34,0,0.05), 0 6px 24px rgba(61,34,0,0.12), inset 0 1px 0 rgba(255,255,255,0.80)',
+          background: '#FFF8EE',
+          boxShadow: '10px 10px 25px rgba(180, 160, 140, 0.25), -10px -10px 25px rgba(255, 255, 255, 0.95), inset 1px 1px 1px rgba(255, 255, 255, 0.9)',
+          border: '1px solid rgba(255, 255, 255, 0.4)',
         }}
       >
         <div className="flex gap-0.5 items-center overflow-x-auto scrollbar-none [-webkit-overflow-scrolling:touch] flex-nowrap max-w-[calc(100vw-32px)]">
